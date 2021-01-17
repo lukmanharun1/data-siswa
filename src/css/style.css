@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.input {
+  @apply border-2 border-solid rounded border-indigo-400;
+}
+
+.input:focus {
+  @apply border-2 border-solid rounded border-indigo-400 outline-none;
+}
