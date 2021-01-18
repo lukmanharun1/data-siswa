@@ -1,5 +1,6 @@
 <?php 
 
+require_once '../functions.php';
 if (isset($_POST['nama']) && 
     isset($_POST['alamat']) &&
     isset($_POST['kelas']) &&
@@ -19,9 +20,11 @@ if (isset($_POST['nama']) &&
     ];
     $dataJson = json_encode($data);
     $tambahDataSiswa = httpRequest('http://localhost/data-siswa/siswa.php', 'POST', $dataJson);
-    var_dump($tambahDataSiswa);
-}
-
+    setcookie('status', $tambahDataSiswa['status']);
+    setcookie('message', $tambahDataSiswa['message']);
+    redirect('index.php');
+  } 
+  
 ?>
 
 <!DOCTYPE html>
@@ -54,7 +57,7 @@ if (isset($_POST['nama']) &&
       <option value="Broadcasting">Broadcasting</option>
     </select>
     <!-- jenis kelamin -->
-    <label for="jenis_kelamin" class="block -ml-28 my-1">Jenis kelamin</label>
+    <label for="jenis_kelamin" class="block -ml-40 my-1">Jenis kelamin</label>
     <select name="jenis_kelamin" id="jenis_kelamin" class="input p-2 px-20">
       <option value="Laki-Laki">Laki-Laki</option>
       <option value="Perempuan">Perempuan</option>

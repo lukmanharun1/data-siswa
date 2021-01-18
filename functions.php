@@ -29,7 +29,6 @@ function httpRequest($url, $requstMethod = 'GET', $json = '') {
   // return the transfer as a string 
   curl_setopt($curlInit, CURLOPT_RETURNTRANSFER, 1);
   $outputCurl = json_decode(curl_exec($curlInit), true);
-
   // tutup curl
   curl_close($curlInit);
   return $outputCurl;
