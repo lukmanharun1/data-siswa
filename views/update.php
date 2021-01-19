@@ -10,6 +10,28 @@ if (empty($_GET['id'])) {
   // jika id siswa tidak ada data
   if (!$dataSiswa) {
     redirect('index.php');
+  } else if (isset($_POST['nama']) && 
+  isset($_POST['alamat']) &&
+  isset($_POST['kelas']) &&
+  isset($_POST['jurusan']) &&
+  isset($_POST['jenis_kelamin'])) {
+    $nama = $_POST['nama'];
+    $alamat = $_POST['alamat'];
+    $kelas = $_POST['kelas'];
+    $jurusan = $_POST['jurusan'];
+    $jenisKelamin = $_POST['jenis_kelamin'];
+    $data = [
+      'nama' => $nama,
+      'alamat' => $alamat,
+      'kelas' => $kelas,
+      'jurusan' => $jurusan,
+      'jenis_kelamin' => $jenisKelamin
+    ];
+    $dataJson = json_encode($data);
+    $updateDataSiswa = httpRequest('http://localhost/data-siswa/siswa.php/' . $id, 'PUT', $dataJson);
+    setcookie('status', $updateDataSiswa['status']);
+    setcookie('message', $updateDataSiswa['message']);
+    redirect('index.php');
   }
 }
 ?>
@@ -79,7 +101,7 @@ if (empty($_GET['id'])) {
       <option value="Perempuan">Perempuan</option>
     </select> <br>
     <!-- tombol submit -->
-    <button type="submit" class="p-2 px-14 text-white bg-indigo-500 hover:bg-indigo-600 mt-4 rounded ">
+    <button type="submit" class="p-2 px-14 text-white bg-indigo-500 hover:bg-indigo-600 mt-4 rounded">
      <svg 
       xmlns="http://www.w3.org/2000/svg" 
       viewBox="0 0 24 24" 
