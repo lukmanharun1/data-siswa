@@ -1,10 +1,10 @@
 <?php 
 
 require_once '../functions.php';
-
 $getAllDataSiswa = httpRequest('http://localhost/data-siswa/siswa.php');
-?>
 
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,7 +46,7 @@ $getAllDataSiswa = httpRequest('http://localhost/data-siswa/siswa.php');
   Tambah data siswa
   </a>
   <!-- cetak pdf -->
-  <a href="#">
+  <a href="cetakpdf.php" target="_blank">
     <svg 
       viewBox="0 0 384 512"
       class="w-9 h-9 inline-block ml-2"
