@@ -1,11 +1,21 @@
 <?php 
 
 require_once '../functions.php';
-$getAllDataSiswa = httpRequest('http://localhost/data-siswa/siswa.php');
-
 header("Content-type: application/vnd-ms-excel");
 header("Content-Disposition: attachment; filename=Data siswa.xls");
 $i = 1;
+if (isset($_GET['id'])) {
+  $id = filter($_GET['id']);
+  // jika id siswa ada data
+  $getDataSiswa = httpRequest('http://localhost/data-siswa/siswa.php/' . $id);
+  // jika id siswa tidak ada data
+  if (!$getDataSiswa['data']) {
+    redirect('index.php');
+  } 
+} else {
+  // jika tidak query param id maka mengambil seluruh data
+  $getDataSiswa = httpRequest('http://localhost/data-siswa/siswa.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +44,7 @@ $i = 1;
       </tr>
     </thead>
     <tbody>
-    <?php foreach($getAllDataSiswa['data'] as $dataSiswa) : ?>
+    <?php foreach($getDataSiswa['data'] as $dataSiswa) : ?>
       <tr>
         <td><?= $i++; ?></td>
         <td><?= $dataSiswa['nama']; ?></td>
