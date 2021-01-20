@@ -4,7 +4,21 @@ require_once 'functions.php';
 
 // mengambil id dari url
 $id = explode('/', $_SERVER['REQUEST_URI'])[3];
-if (!$id && $_SERVER['REQUEST_METHOD'] === 'GET') {
+if (isset($_GET['cari'])) {
+  $cari = filter($_GET['cari']);
+  $query = "SELECT * FROM siswa WHERE nama LIKE '%$cari%' 
+    OR alamat LIKE '%$cari%' 
+    OR kelas LIKE '%$cari%' 
+    OR jurusan LIKE '%$cari%' 
+    OR jenis_kelamin LIKE '%$cari%'";
+    $cariDataSiswa = mysqli_fetch_all(query($query), MYSQLI_ASSOC);
+    $data = [
+      'status' => 'success',
+      'data' => $cariDataSiswa,
+    ];
+    echo json_encode($data);
+}
+else if (!$id && $_SERVER['REQUEST_METHOD'] === 'GET') {
   $getAllSiswa =mysqli_fetch_all( query("SELECT * FROM siswa"), MYSQLI_ASSOC);
 
   $data = [
@@ -92,18 +106,18 @@ if (!$id && $_SERVER['REQUEST_METHOD'] === 'GET') {
 
   if ($getDataSiswa) {
     // data lama
-    $nama = $getDataSiswa['nama'];
-    $alamat = $getDataSiswa['alamat'];
-    $kelas = $getDataSiswa['kelas'];
-    $jurusan = $getDataSiswa['jurusan'];
-    $jenis_kelamin = $getDataSiswa['jenis_kelamin'];
+    $nama = filter($getDataSiswa['nama']);
+    $alamat = filter($getDataSiswa['alamat']);
+    $kelas = filter($getDataSiswa['kelas']);
+    $jurusan = filter($getDataSiswa['jurusan']);
+    $jenis_kelamin = filter($getDataSiswa['jenis_kelamin']);
     
     // data baru
-    $updateNama = $requestJson['nama'];
-    $updateAlamat = $requestJson['alamat'];
-    $updateKelas = $requestJson['kelas'];
-    $updateJurusan = $requestJson['jurusan'];
-    $updateJenis_Kelamin = $requestJson['jenis_kelamin'];
+    $updateNama = filter($requestJson['nama']);
+    $updateAlamat = filter($requestJson['alamat']);
+    $updateKelas = filter($requestJson['kelas']);
+    $updateJurusan = filter($requestJson['jurusan']);
+    $updateJenis_Kelamin = filter($requestJson['jenis_kelamin']);
     
     // cek jika null timpa ke data lama
     $updateNama === null ? $updateNama = $nama : '';
@@ -143,4 +157,4 @@ if (!$id && $_SERVER['REQUEST_METHOD'] === 'GET') {
     ];
     echo json_encode($data);
   }
-}
+} 

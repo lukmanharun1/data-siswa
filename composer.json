@@ -1,0 +1,12 @@
+{
+    "name": "lukman/data-siswa",
+    "authors": [
+        {
+            "name": "lukman",
+            "email": "nandes88.ni@gmail.com"
+        }
+    ],
+    "require": {
+        "mpdf/mpdf": "^8.0"
+    }
+}
