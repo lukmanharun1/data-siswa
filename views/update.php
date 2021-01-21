@@ -43,11 +43,22 @@ if (empty($_GET['id'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ubah data siswa</title>
   <link rel="stylesheet" href="css/style.css">
-  <script src="js/sweetalert.min.js"></script>
 </head>
 <body>
-  <h1 class="text-center text-4xl my-6">Tambah data siswa</h1>
-  <form action="" method="POST" class="text-center">
+  <h1 class="text-center text-4xl my-6">Ubah data siswa</h1>
+  <a href="index.php" class="p-3 text-white bg-indigo-500 hover:bg-indigo-600 rounded ml-40">
+  <!-- icon arrow back -->
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    viewBox="0 0 24 24" 
+    class="w-7 h-7 inline-block"
+    fill="#fff">
+    <path d="M0 0h24v24H0z" fill="none" />
+    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+  </svg>
+  Kembali halaman utama
+  </a>
+  <form action="" method="POST" class="text-center -mt-6">
     <!-- nama -->
     <label for="nama" class="block -ml-44 my-1">Nama siswa</label>
     <input 
