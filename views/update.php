@@ -89,8 +89,8 @@ if (empty($_GET['id'])) {
     <!-- jenis kelamin -->
     <label for="jenis_kelamin" class="block -ml-40 my-1">Jenis kelamin</label>
     <select name="jenis_kelamin" id="jenis_kelamin" class="input p-2 px-20">
-      <option value="Laki-Laki">Laki-Laki</option>
-      <option value="Perempuan">Perempuan</option>
+      <option value="Laki-Laki" <?= $dataSiswa['jenis_kelamin'] === 'Laki-Laki' ? 'selected' : ''; ?>>Laki-Laki</option>
+      <option value="Perempuan" <?= $dataSiswa['jenis_kelamin'] === 'Perempuan' ? 'selected' : ''; ?>>Perempuan</option>
     </select> <br>
     <!-- tombol submit -->
     <button type="submit" class="p-2 px-12 text-white bg-indigo-500 hover:bg-indigo-600 mt-4 rounded">
