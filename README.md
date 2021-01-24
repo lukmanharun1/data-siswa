@@ -25,14 +25,14 @@ pembuatan API di file siswa.php data yang dikirimkan berupa json
 untuk end point nya
 
 GET http://localhost/data-siswa/siswa.php 
-  -> mengambil semua data siswa
+   (mengambil semua data siswa)
 GET http://localhost/data-siswa/siswa.php/2 
-  -> mengambil data siswa berdasarkan id
+   (mengambil data siswa berdasarkan id)
 POST http://localhost/data-siswa/siswa.php  
-  -> menambahkan data dikirim data JSON melalui request body
+  (menambahkan data dikirim data JSON melalui request body)
 PUT http://localhost/data-siswa/siswa.php/2 
-  -> mengubah data siswa bersarkan id dikirim data JSON melalui request body
+   (mengubah data siswa bersarkan id dikirim data JSON melalui request body)
 DELETE http://localhost/data-siswa/siswa.php/2 
-  -> hapus data siswa berdasarkan id
+   (hapus data siswa berdasarkan id)
 
 Selamat mencoba
