@@ -28,6 +28,9 @@ GET http://localhost/data-siswa/siswa.php
    (mengambil semua data siswa)
 GET http://localhost/data-siswa/siswa.php/2 
    (mengambil data siswa berdasarkan id)
+GET http://localhost/data-siswa/siswa.php?cari=lukman
+    (mengambil semua data siswa berdasarkan pencarian,
+    yaitu: nama, alamat, kelas, jurusan, jenis_kelamin)
 POST http://localhost/data-siswa/siswa.php  
   (menambahkan data dikirim data JSON melalui request body)
 PUT http://localhost/data-siswa/siswa.php/2 
