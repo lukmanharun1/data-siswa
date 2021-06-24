@@ -23,6 +23,7 @@ konsumsi API kalian bisa menggunakan yang lain misalnya NODE JS, EXPRESS JS, Rea
 pembuatan API di file siswa.php data yang dikirimkan berupa json
 untuk end point nya
 
+<<<<<<< HEAD
 GET http://localhost:8080/data-siswa/siswa.php
 -> mengambil semua data siswa
 GET http://localhost:8080/data-siswa/siswa.php/2
@@ -33,5 +34,20 @@ PUT http://localhost:8080/data-siswa/siswa.php/2
 -> mengubah data siswa bersarkan id dikirim data JSON melalui request body
 DELETE http://localhost:8080/data-siswa/siswa.php/2
 -> hapus data siswa berdasarkan id
+=======
+GET http://localhost/data-siswa/siswa.php 
+   (mengambil semua data siswa)
+GET http://localhost/data-siswa/siswa.php/2 
+   (mengambil data siswa berdasarkan id)
+GET http://localhost/data-siswa/siswa.php?cari=lukman
+    (mengambil semua data siswa berdasarkan pencarian,
+    yaitu: nama, alamat, kelas, jurusan, jenis_kelamin)
+POST http://localhost/data-siswa/siswa.php  
+  (menambahkan data dikirim data JSON melalui request body)
+PUT http://localhost/data-siswa/siswa.php/2 
+   (mengubah data siswa bersarkan id dikirim data JSON melalui request body)
+DELETE http://localhost/data-siswa/siswa.php/2 
+   (hapus data siswa berdasarkan id)
+>>>>>>> 9aa304674c6bf632b0f89ab426c1ed695cf07e44
 
 Selamat mencoba

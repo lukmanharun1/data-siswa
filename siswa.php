@@ -3,7 +3,11 @@
 require_once 'functions.php';
 
 // mengambil id dari url
-$id = explode('/', $_SERVER['REQUEST_URI'])[3];
+if (count(explode('/', $_SERVER['REQUEST_URI'])) === 4) {
+  $id = explode('/', $_SERVER['REQUEST_URI'])[3];
+} else {
+  $id = false;
+}
 if (isset($_GET['cari'])) {
   $cari = filter($_GET['cari']);
   $query = "SELECT * FROM siswa WHERE nama LIKE '%$cari%' 
@@ -11,15 +15,14 @@ if (isset($_GET['cari'])) {
     OR kelas LIKE '%$cari%' 
     OR jurusan LIKE '%$cari%' 
     OR jenis_kelamin LIKE '%$cari%'";
-    $cariDataSiswa = mysqli_fetch_all(query($query), MYSQLI_ASSOC);
-    $data = [
-      'status' => 'success',
-      'data' => $cariDataSiswa,
-    ];
-    echo json_encode($data);
-}
-else if (!$id && $_SERVER['REQUEST_METHOD'] === 'GET') {
-  $getAllSiswa =mysqli_fetch_all( query("SELECT * FROM siswa"), MYSQLI_ASSOC);
+  $cariDataSiswa = mysqli_fetch_all(query($query), MYSQLI_ASSOC);
+  $data = [
+    'status' => 'success',
+    'data' => $cariDataSiswa,
+  ];
+  echo json_encode($data);
+} else if (!$id && $_SERVER['REQUEST_METHOD'] === 'GET') {
+  $getAllSiswa = mysqli_fetch_all(query("SELECT * FROM siswa"), MYSQLI_ASSOC);
 
   $data = [
     'status' => 'success',
@@ -36,47 +39,50 @@ else if (!$id && $_SERVER['REQUEST_METHOD'] === 'GET') {
   echo json_encode($data);
 } else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $requestJson = json_decode(file_get_contents('php://input'), true);
-  if (empty($requestJson['nama']) && empty($requestJson['alamat']) 
-      && empty($requestJson['kelas']) && empty($requestJson['jurusan']) 
-      && empty($requestJson['jenis_kelamin'])) {
-        $data = [
-          'status' => 'error',
-          'message' => [
-            'nama' => 'wajib di isi',
-            'alamat' => 'wajib di isi',
-            'kelas' => 'wajib di isi',
-            'jurusan' => 'wajib di isi',
-            'jenis_kelamin' => 'wajib di isi [Laki-Laki, Perempuan]'
-          ]
-        ];
-        echo json_encode($data);
-      } else if (in_array($requestJson['jenis_kelamin'], ['Laki-Laki', 'Perempuan'])) {
-        // input data siswa
-        $nama = filter($requestJson['nama']);
-        $alamat = filter($requestJson['alamat']);
-        $kelas = filter($requestJson['kelas']);
-        $jurusan = filter($requestJson['jurusan']);
-        $jenis_kelamin = filter($requestJson['jenis_kelamin']);
-        $query = "INSERT INTO `siswa` VALUES(NULL, '$nama', '$alamat', '$kelas', '$jurusan', '$jenis_kelamin')";
-        $tambahDataSiswa = query($query);
-        if ($tambahDataSiswa) {
-          // berhasil di tambah
-          $getTambahDataSiswa = end(mysqli_fetch_all(query("SELECT * FROM siswa WHERE nama = '$nama'"), MYSQLI_ASSOC));
-          $data = [
-            'status' => 'success',
-            'data' => $getTambahDataSiswa,
-            'message' => 'Data siswa berhasil ditambahkan'
-          ];
-          echo json_encode($data);
-        } else {
-          // data gagal di tambahkan
-          $data = [
-            'status' => 'error',
-            'message' => 'Data siswa gagal ditambahkan'
-          ];
-          echo json_encode($data);
-        }
-      } 
+  if (
+    empty($requestJson['nama']) && empty($requestJson['alamat'])
+    && empty($requestJson['kelas']) && empty($requestJson['jurusan'])
+    && empty($requestJson['jenis_kelamin'])
+  ) {
+    $data = [
+      'status' => 'error',
+      'message' => [
+        'nama' => 'wajib di isi',
+        'alamat' => 'wajib di isi',
+        'kelas' => 'wajib di isi',
+        'jurusan' => 'wajib di isi',
+        'jenis_kelamin' => 'wajib di isi [Laki-Laki, Perempuan]'
+      ]
+    ];
+    echo json_encode($data);
+  } else if (in_array($requestJson['jenis_kelamin'], ['Laki-Laki', 'Perempuan'])) {
+    // input data siswa
+    $nama = filter($requestJson['nama']);
+    $alamat = filter($requestJson['alamat']);
+    $kelas = filter($requestJson['kelas']);
+    $jurusan = filter($requestJson['jurusan']);
+    $jenis_kelamin = filter($requestJson['jenis_kelamin']);
+    $query = "INSERT INTO `siswa` VALUES(NULL, '$nama', '$alamat', '$kelas', '$jurusan', '$jenis_kelamin')";
+    $tambahDataSiswa = query($query);
+    if ($tambahDataSiswa) {
+      // berhasil di tambah
+      $getTambahDataSiswa = mysqli_fetch_all(query("SELECT * FROM siswa WHERE nama = '$nama'"), MYSQLI_ASSOC);
+      $getAllSiswa = end($getTambahDataSiswa);
+      $data = [
+        'status' => 'success',
+        'data' => $getTambahDataSiswa,
+        'message' => 'Data siswa berhasil ditambahkan'
+      ];
+      echo json_encode($data);
+    } else {
+      // data gagal di tambahkan
+      $data = [
+        'status' => 'error',
+        'message' => 'Data siswa gagal ditambahkan'
+      ];
+      echo json_encode($data);
+    }
+  }
 } else if ($_SERVER['REQUEST_METHOD'] === 'DELETE' && $id) {
   $id = filter($id);
   $query = "SELECT * FROM `siswa` WHERE id = '$id'";
@@ -111,14 +117,14 @@ else if (!$id && $_SERVER['REQUEST_METHOD'] === 'GET') {
     $kelas = filter($getDataSiswa['kelas']);
     $jurusan = filter($getDataSiswa['jurusan']);
     $jenis_kelamin = filter($getDataSiswa['jenis_kelamin']);
-    
+
     // data baru
     $updateNama = filter($requestJson['nama']);
     $updateAlamat = filter($requestJson['alamat']);
     $updateKelas = filter($requestJson['kelas']);
     $updateJurusan = filter($requestJson['jurusan']);
     $updateJenis_Kelamin = filter($requestJson['jenis_kelamin']);
-    
+
     // cek jika null timpa ke data lama
     $updateNama === null ? $updateNama = $nama : '';
     $updateAlamat === null ? $updateAlamat = $alamat : '';
@@ -132,24 +138,24 @@ else if (!$id && $_SERVER['REQUEST_METHOD'] === 'GET') {
       jurusan = '$updateJurusan',
       jenis_kelamin = '$updateJenis_Kelamin'
       WHERE id = '$id'";
-      $updateDataSiswa = query($query);
-      if ($updateDataSiswa) {
-        // berhasil update
-        $query = "SELECT * FROM `siswa` WHERE id = '$id'";
-        $getDataSiswa = mysqli_fetch_all(query($query), MYSQLI_ASSOC);
-        $data = [
-          'status' => 'success',
-          'data' => $getDataSiswa,
-          'message' => 'Data siswa berhasil di update'
-        ];
-        echo json_encode($data);
-      } else {
-        $data = [
-          'status' => 'error',
-          'message' => 'Data siswa gagal di update'
-        ];
-        echo json_encode($data);
-      }
+    $updateDataSiswa = query($query);
+    if ($updateDataSiswa) {
+      // berhasil update
+      $query = "SELECT * FROM `siswa` WHERE id = '$id'";
+      $getDataSiswa = mysqli_fetch_all(query($query), MYSQLI_ASSOC);
+      $data = [
+        'status' => 'success',
+        'data' => $getDataSiswa,
+        'message' => 'Data siswa berhasil di update'
+      ];
+      echo json_encode($data);
+    } else {
+      $data = [
+        'status' => 'error',
+        'message' => 'Data siswa gagal di update'
+      ];
+      echo json_encode($data);
+    }
   } else {
     $data = [
       'status' => 'error',
@@ -157,4 +163,4 @@ else if (!$id && $_SERVER['REQUEST_METHOD'] === 'GET') {
     ];
     echo json_encode($data);
   }
-} 
+}

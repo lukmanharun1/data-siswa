@@ -4,9 +4,9 @@
 
 
 .input {
-  @apply border-2 border-solid rounded border-indigo-400;
+  @apply border-2 border-solid rounded border-indigo-400 w-64 p-2;
 }
 
 .input:focus {
-  @apply border-2 border-solid rounded border-indigo-400 outline-none;
+  @apply border-2 border-solid rounded border-indigo-400 outline-none w-64 p-2;
 }
