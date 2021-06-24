@@ -1,7 +1,6 @@
 <?php
 
 require_once '../functions.php';
-<<<<<<< HEAD
 if (isset($_POST['nama']) && 
     isset($_POST['alamat']) &&
     isset($_POST['kelas']) &&
@@ -26,34 +25,7 @@ if (isset($_POST['nama']) &&
     redirect('index.php');
   } 
   
-=======
-if (
-  isset($_POST['nama']) &&
-  isset($_POST['alamat']) &&
-  isset($_POST['kelas']) &&
-  isset($_POST['jurusan']) &&
-  isset($_POST['jenis_kelamin'])
-) {
-  $nama = $_POST['nama'];
-  $alamat = $_POST['alamat'];
-  $kelas = $_POST['kelas'];
-  $jurusan = $_POST['jurusan'];
-  $jenisKelamin = $_POST['jenis_kelamin'];
-  $data = [
-    'nama' => $nama,
-    'alamat' => $alamat,
-    'kelas' => $kelas,
-    'jurusan' => $jurusan,
-    'jenis_kelamin' => $jenisKelamin
-  ];
-  $dataJson = json_encode($data);
-  $tambahDataSiswa = httpRequest('http://localhost/data-siswa/siswa.php', 'POST', $dataJson);
-  setcookie('status', $tambahDataSiswa['status']);
-  setcookie('message', $tambahDataSiswa['message']);
-  redirect('index.php');
-}
 
->>>>>>> 9aa304674c6bf632b0f89ab426c1ed695cf07e44
 ?>
 
 <!DOCTYPE html>
