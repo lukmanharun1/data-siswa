@@ -6,7 +6,7 @@ if (empty($_GET['id'])) {
 } else {
   $id = filter($_GET['id']);
   // jika id siswa ada data
-  $dataSiswa = httpRequest('http://localhost/data-siswa/siswa.php/' . $id)['data'][0];
+  $dataSiswa = httpRequest('http://localhost:8080/data-siswa/siswa.php/' . $id)['data'][0];
   // jika id siswa tidak ada data
   if (!$dataSiswa) {
     redirect('index.php');
@@ -28,7 +28,7 @@ if (empty($_GET['id'])) {
       'jenis_kelamin' => $jenisKelamin
     ];
     $dataJson = json_encode($data);
-    $updateDataSiswa = httpRequest('http://localhost/data-siswa/siswa.php/' . $id, 'PUT', $dataJson);
+    $updateDataSiswa = httpRequest('http://localhost:8080/data-siswa/siswa.php/' . $id, 'PUT', $dataJson);
     setcookie('status', $updateDataSiswa['status']);
     setcookie('message', $updateDataSiswa['message']);
     redirect('index.php');

@@ -1,7 +1,7 @@
 <?php 
 
 require_once '../functions.php';
-$getAllDataSiswa = httpRequest('http://localhost/data-siswa/siswa.php');
+$getAllDataSiswa = httpRequest('http://localhost:8080/data-siswa/siswa.php');
 
 
 ?>

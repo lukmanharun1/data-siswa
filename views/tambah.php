@@ -19,7 +19,7 @@ if (isset($_POST['nama']) &&
       'jenis_kelamin' => $jenisKelamin
     ];
     $dataJson = json_encode($data);
-    $tambahDataSiswa = httpRequest('http://localhost/data-siswa/siswa.php', 'POST', $dataJson);
+    $tambahDataSiswa = httpRequest('http://localhost:8080/data-siswa/siswa.php', 'POST', $dataJson);
     setcookie('status', $tambahDataSiswa['status']);
     setcookie('message', $tambahDataSiswa['message']);
     redirect('index.php');

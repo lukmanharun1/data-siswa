@@ -6,7 +6,7 @@ $mpdf = new \Mpdf\Mpdf();
 if (isset($_GET['id'])) {
   $id = filter($_GET['id']);
   // jika id siswa ada data
-  $getDataSiswa = httpRequest('http://localhost/data-siswa/siswa.php/' . $id);
+  $getDataSiswa = httpRequest('http://localhost:8080/data-siswa/siswa.php/' . $id);
   $html = '<!DOCTYPE html>
         <html lang="en">
         <head>
@@ -90,7 +90,7 @@ if (isset($_GET['id'])) {
     redirect('index.php');
   } 
 } else {
-$getAllDataSiswa = httpRequest('http://localhost/data-siswa/siswa.php');
+$getAllDataSiswa = httpRequest('http://localhost:8080/data-siswa/siswa.php');
 
 $html = '<!DOCTYPE html>
         <html lang="en">

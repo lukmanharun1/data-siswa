@@ -1,33 +1,31 @@
-const tombolHapus = document.querySelectorAll('.tombol-hapus');
-const cari = document.getElementById('cari');
-tombolHapus.forEach(hapus => {
-  hapus.addEventListener('click', event => {
+const tombolHapus = document.querySelectorAll(".tombol-hapus");
+const cari = document.getElementById("cari");
+tombolHapus.forEach((hapus) => {
+  hapus.addEventListener("click", (event) => {
     event.preventDefault();
     swal({
-        title: "Yakin?",
-        text: "Apakah anda ingin menghapus data ini",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-      })
-      .then((willDelete) => {
-        if (willDelete) {
-          document.location.href = hapus.href;
-        }
-      });
+      title: "Yakin?",
+      text: "Apakah anda ingin menghapus data ini",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        document.location.href = hapus.href;
+      }
+    });
   });
 });
 
-
 // cari data siswa
-cari.addEventListener('keyup', event => {
+cari.addEventListener("keyup", (event) => {
   const hasilCari = cari.value;
-  fetch(`http://localhost/data-siswa/siswa.php?cari=${hasilCari}`)
-    .then(response => response.json())
-    .then(response => {
+  fetch(`http://localhost:8080/data-siswa/siswa.php?cari=${hasilCari}`)
+    .then((response) => response.json())
+    .then((response) => {
       const hasilDataCari = response.data;
-      let dataCari = '';
-      hasilDataCari.forEach(data => {
+      let dataCari = "";
+      hasilDataCari.forEach((data) => {
         dataCari += `<ul class="m-4 border border-solid border-indigo-400 rounded w-7/12 mx-auto bg-indigo-200 divide-opacity-75">
                       <li class="ml-5 my-3">
                       <!-- nama siswa -->
@@ -89,7 +87,8 @@ cari.addEventListener('keyup', event => {
                       </li>
                     </ul>`;
       });
-      const listContainer = document.querySelector('.list-container');
+      const listContainer = document.querySelector(".list-container");
       listContainer.innerHTML = dataCari;
-    });
+    })
+    .catch((error) => console.log(error));
 });

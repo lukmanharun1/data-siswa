@@ -7,14 +7,14 @@ $i = 1;
 if (isset($_GET['id'])) {
   $id = filter($_GET['id']);
   // jika id siswa ada data
-  $getDataSiswa = httpRequest('http://localhost/data-siswa/siswa.php/' . $id);
+  $getDataSiswa = httpRequest('http://localhost:8080/data-siswa/siswa.php/' . $id);
   // jika id siswa tidak ada data
   if (!$getDataSiswa['data']) {
     redirect('index.php');
   } 
 } else {
   // jika tidak query param id maka mengambil seluruh data
-  $getDataSiswa = httpRequest('http://localhost/data-siswa/siswa.php');
+  $getDataSiswa = httpRequest('http://localhost:8080/data-siswa/siswa.php');
 }
 ?>
 <!DOCTYPE html>
